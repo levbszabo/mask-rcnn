@@ -1,6 +1,5 @@
 # Mask-RCNN for Hand Detection
-
-	Mask-RCNN is a state of the art image segmentation technique. For a given class it yields both a bounding box and a 
+Mask-RCNN is a state of the art image segmentation technique. For a given class it yields both a bounding box and a 
 binary mask for each instance [1]. To better understand the practical implementation of Mask-RCNN we provide the results 
 obtained on a novel dataset using a pretrained model. The EgoHands dataset [2] from Indiana University is used, it
 contains 48 videos of 100 frames each with bounding boxes and binary masks for each hand. The implementation of Mask-RCNN 
