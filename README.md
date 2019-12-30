@@ -13,11 +13,11 @@ For training our model we construct a pytorch dataset with getitem method that y
 ## Video Classification: ActivityClass.ipnyb
 The EgoHands dataset contains 4 different categories of activities (card playing, chess, jenga and puzzles). To classify the activity taking place in each video we apply a 2D convolutional network on a region of interest for each frame and take the class with the maximum average prediction to be the classification for the video. The keras package is used for all machine learning algorithms. 
 
-![Screenshot](convArch2.PNG)
 
 The dataset has 12 videos (1200 frames) for each category. In order to maximize our available training data we take the first 11 videos of each category as training data and the last as a testing set. The label for each image is encoded in one-hot encoding ([1,0,0,0] indicates a label of 0 or “card playing”). Finally, since we have the bounding box information available we utilize it to get a region of interest for the image. Over all boxes we select the minimal bounding box to be [min(min_x), min(min_y), max(max_x), max(max_y)]. These coordinates give us a large box which is then resized to be 32 by 32 pixels.  Finally in keras we construct a 2D convolutional neural network with architecture given below. The optimizer and learning rate was critical to making this model work. Initially the adam optimizer was used but it was too aggressive and the model ended up classifying all images as being of one class. When the SGD optimizer was used with a specified learning rate of 0.00001 the model yielded usable results.
 
-![Screenshot](convArch
+![Screenshot](convArch2.PNG)
+
 
 We used categorical cross entropy as our loss function and ran the model for 10 epochs. Finally we had an accuracy of 0.75, this was determined by counting the number of correctly classified images in each video and if more than half were correctly classified then the video was as well. Only 1 out of 4 testing videos (puzzle playing) was incorrectly classified. Better results could be obtained if more finetuning was used such a dropout layers, data generation through horizontal/vertical flips, and of course more epochs. Fortunately the activities had a large deviation between them, higher resolution imagery and better segmentation would be required if we wished to be more discerning in our classification. Overall the region of interest method extraction combined with a simple 2D convolutional neural network yields reasonable results for the EgoHands dataset when attempting to classify activities.  
 
