@@ -5,6 +5,8 @@ obtained on a novel dataset using a pretrained model. The EgoHands dataset [2] f
 contains 48 videos of 100 frames each with bounding boxes and binary masks for each hand. The implementation of Mask-RCNN 
 is in the pytorch torchvision package and closely follows the following tutorial [3]. 
 
+![Screenshot](hands_exampl1.png)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
