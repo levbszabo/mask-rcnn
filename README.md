@@ -7,18 +7,27 @@ is in the pytorch torchvision package and closely follows the following tutorial
 
 ![Screenshot](hands_exampl1.png)
 
+## Implementation: Mask_RCNN.ipnyb
+For training our model we construct a pytorch dataset with __getitem__ method that yields image and features (boxes,masks,labels,area) in a round robin fashion by selecting the first frame from the first video, then the first from the second and so on. Selection of training data in this fashion increases the diversity of the images seen and allows the algorithm to learn from a training set more closely resembling the true distribution of hand images. We used a pre-trained resnet-50 backbone (pre-trained on the COCO dataset [4]) with 256 hidden layers. The optimizer used was SGD with a learning rate of 0.005, a momentum of 0.9 and a weight decay of 0.0005. The learning rate scheduling was not used due to performance issues. All training and evaluation was performed on the NYU Prince HPC cluster using 2 gpus, 2 cpus and 24 GB of memory. Final training and testing results were done with a split of using 24 videos (2400 frames) for training and 2 videos (200 frames) for testing. To construct a video out of the evaluated images (all 100 frames from the 25th video) the mask was first turned into RGB with inside values as red, then this was added the original image to create an image with a mask overlay. After this the most significant (highest 50% scoring) boxes were also added as blue rectangles. Due to the lack of model training the images do not perfectly segment the hands and there is an excess of boxes. To create an ideal image segmentation all 4800 frames would need to be trained for over 10 epochs. The algorithm is use to yield masks and bounding boxes for an entire video in the test and training sets, train_video.avi and test_video.avi respectively. 
+
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Create a python 3.5 virtual environment and install the packages below, additionally download the torchvision repo
+for some helper functions
 
-### Prerequisites
+  git clone https://github.com/pytorch/vision.git
+  cd vision
+  git checkout v0.3.0
+
+  cp references/detection/utils.py ../
+  cp references/detection/transforms.py ../
+  cp references/detection/coco_eval.py ../
+  cp references/detection/engine.py ../
+  cp references/detection/coco_utils.py ../
+
 The following packages were installed into a virtual environment using python 3.5
 pandas,pillow,matplotlib, pytorch torchvision cudatoolkit=10.0, cython,opencv,jupyter,pycocotools,keras                                                          
-
 The videos were created using the VirtualDub software [5].
-```
-Give examples
-```
 
 ### Installing
 
@@ -49,42 +58,17 @@ Explain what these tests test and why
 ```
 Give an example
 ```
+## References
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+[1] Kaiming He et al. Mask R-CNN, Facebook AI Research,  January 2018 https://arxiv.org/pdf/1703.06870.pdf 
+ 
+[2] Bambach Sven et al. EgoHands: A Dataset for Hands in Complex Egocentric Interactions, December 2015 http://vision.soic.indiana.edu/projects/egohands/ 
+ 
+[3] Finetuning Instance Segmentation.  https://colab.research.google.com/github/pytorch/vision/blob/temp-tutorial/tutorials/torchvision_ finetuning_instance_segmentation.ipynb 
+ 
+[4] Coco Dataset http://cocodataset.org/#download 
+ 
+[5] http://www.virtualdub.org/ 
 
 ## Acknowledgments
 
