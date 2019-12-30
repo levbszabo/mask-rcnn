@@ -23,13 +23,19 @@ Create a python 3.5 virtual environment and install the packages below, addition
 for some helper functions
 
 git clone https://github.com/pytorch/vision.git
+
 cd vision
+
 git checkout v0.3.0
 
 cp references/detection/utils.py ../
+
 cp references/detection/transforms.py ../
+
 cp references/detection/coco_eval.py ../
+
 cp references/detection/engine.py ../
+
 cp references/detection/coco_utils.py ../
 
 The following packages were installed into a virtual environment using python 3.5
