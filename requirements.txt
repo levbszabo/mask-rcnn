@@ -1,0 +1,19 @@
+Levente Szabo   ls5122@nyu.edu
+Machine Learning for Computer Vision Final Project
+
+Files included
+	MaskRCNN_szabo.ipynb :contains all source code for running maskRCNN and creating .png files for videos
+	train_video 	     :contains a reconstructed video on training data
+	test_video 	     :contains a reconstructed video on testing data
+	ActivityClass.ipnyb  :contains all source code for classifying a video based on activity
+
+Packages installed: on x86 Miniconda for Linux using a python 3.5 virtual environment                                        
+pandas                                                            
+pillow                                                            
+matplotlib                                                        
+pytorch torchvision cudatoolkit=10.0                   
+cython                                   
+opencv                       
+jupyter 
+pycocotools
+keras
